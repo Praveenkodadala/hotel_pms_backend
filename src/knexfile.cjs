@@ -9,13 +9,13 @@ const base = {
 
 const isProd = process.env.NODE_ENV === 'production';
 
-const connection = process.env.DB_URL
+const connection = process.env.DATABASE_URL
   ? {
-      connectionString: process.env.DB_URL,
+      connectionString: process.env.DATABASE_URL,
       ssl: isProd ? { rejectUnauthorized: false } : false,
     }
   : {
-      host: process.env.DB_HOST || 'postgres',
+      host: process.env.DB_HOST || 'localhost',
       port: process.env.DB_PORT || 5432,
       database: process.env.DB_NAME || 'hotel_pms',
       user: process.env.DB_USER || 'postgres',
