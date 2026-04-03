@@ -27,12 +27,19 @@ const app = express();
 app.use(cors({
   origin: function (origin, callback) {
     const allowed = [
-      cfg.server.frontendUrl,
-      'http://localhost:3000',
-      'http://localhost:5173'
+      'http://localhost:5173', // Vite dev
+      'http://localhost:3000', // optional
+      process.env.FRONTEND_URL // production frontend (Vercel)
     ];
-    if (!origin || allowed.includes(origin)) return callback(null, true);
-    callback(new Error('Not allowed by CORS'));
+
+    // allow requests with no origin (like Postman / curl)
+    if (!origin) return callback(null, true);
+
+    if (allowed.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
 }));
