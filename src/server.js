@@ -25,23 +25,8 @@ const app = express();
 
 // ── CORS ────────────────────────────────────────────────────────
 app.use(cors({
-  origin: function (origin, callback) {
-    const allowed = [
-      'http://localhost:5173', // Vite dev
-      'http://localhost:3000', // optional
-      process.env.FRONTEND_URL // production frontend (Vercel)
-    ];
-
-    // allow requests with no origin (like Postman / curl)
-    if (!origin) return callback(null, true);
-
-    if (allowed.includes(origin)) {
-      return callback(null, true);
-    }
-
-    return callback(new Error('Not allowed by CORS'));
-  },
-  credentials: true,
+  origin: true,
+  credentials: true
 }));
 
 app.use(express.json({ limit: '10mb' }));
